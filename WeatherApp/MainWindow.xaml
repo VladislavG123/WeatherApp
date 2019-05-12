@@ -1,0 +1,254 @@
+﻿<Window x:Class="WeatherApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherApp"
+        mc:Ignorable="d"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}" Height="450" Width="400" ResizeMode="NoResize" WindowStyle="None">
+
+    <DockPanel LastChildFill="True">
+        <Canvas DockPanel.Dock="Top" Height="20" Background="#FF29C5FF">
+            <Button x:Name="CloseButton" Width="18" Height="18" BorderThickness="0" Padding="0" Canvas.Right="2" Canvas.Top="1" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton" Background="White" BorderBrush="White" Click="CloseButton_Click">
+                <materialDesign:PackIcon Kind="Close"></materialDesign:PackIcon>
+            </Button>
+            <Label Height="20" Padding="0" Foreground="#DDFFFFFF" FontFamily="Adobe Heiti Std R" FontWeight="Bold" Canvas.Top="2">Weather App</Label>
+        </Canvas>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="17*"/>
+                <RowDefinition Height="121*"/>
+                <RowDefinition Height="243*"/>
+                <RowDefinition Height="14*"/>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Grid.Row="1" Height="24" Background="White" Margin="10,0">
+                <TextBox x:Name="findTextBox" CaretBrush="#FF29C5FF" SelectionBrush="#FF29C5FF" materialDesign:HintAssist.Hint="Enter city name"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#FF29C5FF">
+
+                </TextBox>
+            </materialDesign:Card>
+            <Button x:Name="findButton" Grid.Row="1" Height="Auto" Width="Auto"  Margin="364,0,10,5" Padding="0" 
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton" Background="White" BorderBrush="White" Click="FindButtonClick">
+                <materialDesign:PackIcon Kind="ChevronRight"></materialDesign:PackIcon>
+            </Button>
+
+            <DockPanel x:Name="todayDockPanel" Grid.Row="3">
+                <materialDesign:Card Width="160" Height="120">
+                    <Button Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF" Padding="0">
+                        <Canvas Height="110" Width="148">
+                            <Label x:Name="todayLable" Height="16" Width="36" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" FontSize="12" Foreground="#DDFFFFFF">Today</Label>
+                            <materialDesign:PackIcon x:Name="firstDayWeatherImage" Kind="WeatherSunny" Canvas.Left="98" Height="50" Width="50"/>
+                            <Label x:Name="firstDateLable" Canvas.Top="21" Height="16" Width="82" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF"></Label>
+                            <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="34" Width="148" Canvas.Top="55">
+                                <Canvas Height="34" Width="35">
+                                    <materialDesign:PackIcon Kind="MoonAndStars" Height="34" Width="35"></materialDesign:PackIcon>
+                                    <Label x:Name="firstNightTemperatureLable" Padding="0" Height="17" Width="24" Canvas.Left="6" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="34" >0</Label>
+                                </Canvas>
+                                <Canvas Height="34" Width="35" Margin="0,0,2,0">
+                                    <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="34" Width="35"></materialDesign:PackIcon>
+                                    <Label x:Name="firstMorningTemperatureLable" Padding="0" Height="17" Width="24" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="34" Canvas.Left="6" >0</Label>
+                                </Canvas>
+                                <Canvas Height="34" Width="36" Margin="0,0,2,0">
+                                    <materialDesign:PackIcon Kind="WeatherSunny" Height="34" Width="35"></materialDesign:PackIcon>
+                                    <Label x:Name="firstDayTemperatureLable" Padding="0" Height="17" Width="30" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="34" Canvas.Left="5" >0</Label>
+                                </Canvas>
+                                <Canvas Height="34" Width="36" Margin="0,0,2,0">
+                                    <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="34" Width="35"></materialDesign:PackIcon>
+                                    <Label x:Name="firstEveningTemperatureLable" Padding="0" Height="17" Width="26" Canvas.Left="4" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="34" >0</Label>
+                                </Canvas>
+                            </StackPanel>
+                        </Canvas>
+                    </Button>
+                </materialDesign:Card>
+            </DockPanel>
+
+            <StackPanel x:Name="daysStackPanel" Orientation="Vertical" Grid.Row="4" Width="400" Height="240">
+                <StackPanel Orientation="Horizontal" Height="120">
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="secondDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="secondDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="secondNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="secondMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="secondDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="secondEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="thirdDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="thirdDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="thirdNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="thirdMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="thirdDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="thirdEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="fourthDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="fourthDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="fourthNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="fourthMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="fourthDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="fourthEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="120">
+
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="fifthDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="fifthDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="fifthNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="fifthMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="fifthDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="fifthEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="sixthDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="sixthDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="sixthNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="sixthMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="sixthDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="sixthEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="110" Height="80" Margin="12,20,10,0">
+                        <Button Padding="0" Height="Auto" Background="#FF29C5FF" BorderBrush="#FF29C5FF">
+                            <Canvas Height="75" Width="105">
+                                <materialDesign:PackIcon x:Name="seventhDayWeatherImage"  Kind="WeatherSunny" Canvas.Left="70" Height="35" Width="35"/>
+                                <Label x:Name="seventhDateLable" Height="20" Width="65" Padding="0" FontWeight="Normal" FontFamily="Comic Sans MS" Foreground="#DDFFFFFF" FontSize="10" Canvas.Top="10"></Label>
+                                <StackPanel Orientation="Horizontal" Canvas.Bottom="0" Height="25" Width="105" Canvas.Top="40">
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="MoonAndStars" Height="18" Width="18"></materialDesign:PackIcon>
+                                        <Label x:Name="seventhNightTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetUp" Height="18" Width="18" Canvas.Left="10"></materialDesign:PackIcon>
+                                        <Label x:Name="seventhMorningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="10" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunny" Height="18" Width="18" Canvas.Left="20"></materialDesign:PackIcon>
+                                        <Label x:Name="seventhDayTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="20" >0</Label>
+                                    </Canvas>
+                                    <Canvas Height="18" Width="18">
+                                        <materialDesign:PackIcon Kind="WeatherSunsetDown" Height="18" Width="18" Canvas.Left="30"></materialDesign:PackIcon>
+                                        <Label x:Name="seventhEveningTemperatureLable"  Padding="0" Height="17" Width="18" Foreground="#DDFFFFFF" Background="#FF29C5FF" Canvas.Top="18" FontSize="10" Canvas.Left="30" >0</Label>
+                                    </Canvas>
+                                </StackPanel>
+                            </Canvas>
+                        </Button>
+                    </materialDesign:Card>
+
+                </StackPanel>
+            </StackPanel>
+
+            <Canvas Background="#FF29C5FF" Grid.Row="5"/>
+
+        </Grid>
+
+
+
+    </DockPanel>
+</Window>
+    
